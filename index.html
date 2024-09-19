@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, form {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Set background with gradient and add bubble effect */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Bold gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative; /* Needed for bubbles positioning */
+        }
+
+        /* Bubble Styles */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15); /* Subtle bubbles */
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            bottom: 10%;
+            left: 15%;
+            animation-duration: 8s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 5%;
+            right: 10%;
+            animation-duration: 12s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            right: 20%;
+            animation-duration: 10s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 140px;
+            height: 140px;
+            top: 25%;
+            left: 25%;
+            animation-duration: 14s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 90px;
+            height: 90px;
+            bottom: 15%;
+            left: 45%;
+            animation-duration: 16s;
+        }
+
+        /* Bold Magenta Circle */
+        .magenta-circle {
+            position: absolute;
+            width: 200px; /* Larger size for emphasis */
+            height: 200px; /* Larger size for emphasis */
+            background: rgba(255, 0, 255, 0.6); /* Bold magenta color */
+            border-radius: 50%;
+            top: 50%;
+            right: -100px; /* Start slightly outside the view */
+            transform: translate(-50%, -50%);
+            animation: floatMagenta 15s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-40px); /* Increased float distance */
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Bold Magenta Floating Animation */
+        @keyframes floatMagenta {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(-25px, -25px); /* More pronounced floating */
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        /* Login Container */
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+        }
+
+        /* Input styles */
+        .input-group {
+            margin-bottom: 1.5em;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input:focus {
+            border-color: #ff7e5f;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 126, 95, 0.2);
+        }
+
+        /* Button styles */
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f);
+            transform: scale(1.05);
+        }
+
+        /* Signup link */
+        .signup-link {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .signup-link a {
+            color: #ff7e5f;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .signup-link a:hover {
+            color: #feb47b;
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 25px;
+                max-width: 320px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .input-group input {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .signup-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 15px;
+                max-width: 100%;
+                margin: 0 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .input-group input {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .signup-link {
+                font-size: 12px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="magenta-circle"></div>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div class="signup-link">
+                <p><b>Don't have an account? </b><a href="Signup.html">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+    <!-- Add bubbles -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Here you can add form validation or submit data to the backend
+    
+            // Redirect to index.html after form submission
+            window.location.href = 'indexx.html';
+        });
+    </script>
+    
+</body>
+</html>
